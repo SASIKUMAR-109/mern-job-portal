@@ -1,0 +1,31 @@
+import { AuthProvider } from "./context/AuthContext";
+import { Navbar } from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AdminReview } from "./pages/AdminReview";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { PostJob } from "./pages/PostJob";
+import { MyApplications } from "./pages/MyApplication";
+import { MyPostedJobs } from "./pages/MyPostedJobs";
+import { BrowseJobs } from "./pages/BrowseJobs";
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<BrowseJobs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/post-job" element={<PostJob />} />
+          <Route path="/my-applications" element={<MyApplications />} />
+          <Route path="/my-posted-jobs" element={<MyPostedJobs />} />
+          <Route path="/admin/review" element={<AdminReview />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;
