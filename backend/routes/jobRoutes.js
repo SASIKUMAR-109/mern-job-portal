@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   createJob, getApprovedJobs, getMyPostedJobs, getPendingJobs,
   approveJob, rejectJob, updateJob, deleteJob, closeJob
-} = require('../controllers/jobcontroller');
+} = require('../controllers/jobController');
 const { authenticateToken, authorizeRoles } = require('../middlewares/authMiddleware');
 
 router.post("/",authenticateToken, authorizeRoles(['company','user']), createJob);
