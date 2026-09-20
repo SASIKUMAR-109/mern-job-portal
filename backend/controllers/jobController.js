@@ -2,9 +2,9 @@ const Job = require('../models/Job');
 
 const createJob = async (req, res) => {
   try {
-    const { title, company, description, location, deadline, link } = req.body;
+    const { title, company, description, location, deadline, link,skills } = req.body;
     const postedBy = req.user.id;
-    const job = new Job({ title, company, description, location, deadline, link, postedBy });
+    const job = new Job({ title, company, description, location, deadline, link, postedBy,skills });
     const savedJob = await job.save();
     res.status(201).json(savedJob);
   } catch (error) {

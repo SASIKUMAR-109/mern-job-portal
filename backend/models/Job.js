@@ -7,6 +7,7 @@ const jobSchema = new mongoose.Schema({
     deadline:{type:Date},
     link:{type:String,required:true},
     status: { type: String, enum: ['pending', 'approved', 'rejected', 'closed'], default: 'pending' },
+    skills: { type: [String]},
     postedBy:{type:mongoose.Schema.Types.ObjectId, ref:'User', required:true},
     createdAt:{type:Date, default:Date.now}
 })
