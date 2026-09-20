@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://mern-job-portal-76t9.onrender.com/";
 
 export const apiRequest = async (endpoint, method = "GET", body = null, token = null) => {
   const headers = {
