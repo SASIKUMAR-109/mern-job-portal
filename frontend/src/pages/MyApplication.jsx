@@ -29,10 +29,10 @@ export const MyApplications = () => {
         alert(e.message)
     }
   }
-  return <div>
-    {error && <p>{error}</p>}
+  return <div className="page-container">
+    {error && <p className="error-text">{error}</p>}
     {applications.map((application) => (
-  <div key={application._id}>
+  <div className="card" key={application._id}>
     <h3>{application.jobId.title}</h3>
     <p>{application.jobId.company}</p>
     <p>{application.status}</p>

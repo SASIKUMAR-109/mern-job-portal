@@ -21,7 +21,8 @@ export const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="page-container">
+    <form className="auth-form" onSubmit={handleSubmit}>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
       <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
@@ -32,5 +33,6 @@ export const Register = () => {
       <button type="submit">Register</button>
       {error && <p>{error}</p>}
     </form>
+    </div>
   );
 }

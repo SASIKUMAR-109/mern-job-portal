@@ -29,10 +29,10 @@ export const BrowseJobs = () => {
         alert(e.message)
     }
   }
-  return <div>
-    {error && <p>{error}</p>}
+  return <div className="page-container">
+    {error && <p className="error-text">{error}</p>}
     {jobs.map((job) => (
-  <div key={job._id}>
+  <div className="card" key={job._id}>
     <h3>{job.title}</h3>
     <p>{job.company}</p>
     <p>{job.description}</p>

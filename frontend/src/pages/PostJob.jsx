@@ -26,7 +26,8 @@ export const PostJob = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <div  className="page-container">
+    <form className="auth-form" onSubmit={handleSubmit}>
       <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" />
       <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="company" />
       <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" />
@@ -36,5 +37,6 @@ export const PostJob = () => {
       <button type="submit">Post a Job</button>
       {error && <p>{error}</p>}
     </form>
+    </div>
   );;
 }

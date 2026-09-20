@@ -8,6 +8,7 @@ import { PostJob } from "./pages/PostJob";
 import { MyApplications } from "./pages/MyApplication";
 import { MyPostedJobs } from "./pages/MyPostedJobs";
 import { BrowseJobs } from "./pages/BrowseJobs";
+import "./App.css";
 
 function App() {
   return (
