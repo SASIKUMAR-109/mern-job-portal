@@ -7,7 +7,7 @@ const {
 const { authenticateToken, authorizeRoles } = require('../middlewares/authMiddleware');
 
 router.post("/",authenticateToken, authorizeRoles(['company','user']), createJob);
-router.get("/",authenticateToken, getApprovedJobs);
+router.get("/", getApprovedJobs);
 router.get("/my-posts",authenticateToken, getMyPostedJobs);
 router.get("/pending",authenticateToken, authorizeRoles(['admin']), getPendingJobs);
 router.patch("/:id/approve",authenticateToken, authorizeRoles(['admin']), approveJob);
