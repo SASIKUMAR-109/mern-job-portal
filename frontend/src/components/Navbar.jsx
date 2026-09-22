@@ -13,20 +13,20 @@ export const Navbar = () => {
       <button className="hamburger-btn" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
 
       <div className="navbar-center">
-        <Link className="nav-link" to="/">Home</Link>
-        <Link className="nav-link" to="/jobs">Browse Jobs</Link>
-        <Link className="nav-link" to="/post-job">Post a Job</Link>
-        <Link className="nav-link" to="/about">About</Link>
-        {user && user.role === 'admin' && <Link className="nav-link" to="/admin/review">Review Queue</Link>}
-        {user && user.role === 'user' && <Link className="nav-link" to="/my-applications">My Applications</Link>}
+        <Link className="nav-link" onClick={() => setMenuOpen(false)} to="/">Home</Link>
+        <Link className="nav-link" onClick={() => setMenuOpen(false)} to="/jobs">Browse Jobs</Link>
+        <Link className="nav-link" onClick={() => setMenuOpen(false)} to="/post-job">Post a Job</Link>
+        <Link className="nav-link" onClick={() => setMenuOpen(false)} to="/about">About</Link>
+        {user && user.role === 'admin' && <Link className="nav-link" to="/admin/review" onClick={() => setMenuOpen(false)}>Review Queue</Link>}
+        {user && user.role === 'user' && <Link className="nav-link" to="/my-applications" onClick={() => setMenuOpen(false)}>My Applications</Link>}
 
-        {user && user.role === 'company' && <Link className="nav-link" to="/my-posted-jobs">My Posted Jobs</Link>}
+        {user && user.role === 'company' && <Link className="nav-link" to="/my-posted-jobs" onClick={() => setMenuOpen(false)}>My Posted Jobs</Link>}
       </div>
 
       <div className="navbar-right">
-        {!user && <Link className="btn" to="/register">Get Started</Link>}
+        {!user && <Link className="btn"  onClick={() => setMenuOpen(false)} to="/register">Get Started</Link>}
         {user && <span className="navbar-username">Hi, {user.name}</span>}
-        {user && <button className="btn btn-outline" onClick={logout}>Logout</button>}
+        {user && <button className="btn btn-outline" onClick={() => { logout(); setMenuOpen(false);}}>Logout</button>}
       </div>
     </nav>
   )
