@@ -16,8 +16,12 @@ export const Register = () => {
       const data = await apiRequest("/auth/register", "POST", { name, email, password, role });
       navigate("/login");
     } catch (error) {
-      setError(error.message);
-    }
+      if (error.message === "Email already exists") {
+          navigate("/login");
+  } else {
+    setError(error.message);
+  }
+}
   };
 
   return (

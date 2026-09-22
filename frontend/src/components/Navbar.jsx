@@ -8,15 +8,23 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link className="nav-link" to="/jobs">Browse Jobs</Link>
-      {!user && <Link className="nav-link" to="/login">Login</Link>}
-      {!user && <Link className="nav-link" to="/register">Register</Link>}
-      {user && <button className="btn btn-outline" onClick={logout}>Logout</button>}
-      {user && user.role === 'admin' && <Link className="nav-link" to="/admin/review">Review Queue</Link>}
-      {user && user.role === 'user' && <Link className="nav-link" to="/my-applications">MyApplication</Link>}
-      {user && user.role === 'user' && <Link className="nav-link" to="/post-job">Post a Job</Link>}
-      {user && user.role === 'company' && <Link className="nav-link" to="/post-job">Post a Job</Link>}
-      {user && user.role === 'company' && <Link className="nav-link" to="/my-posted-jobs">My Posted Jobs</Link>}
+      <Link className="brand" to="/">CareerHub</Link>
+
+      <div className="navbar-center">
+        <Link className="nav-link" to="/">Home</Link>
+        <Link className="nav-link" to="/jobs">Browse Jobs</Link>
+        {user && user.role === 'admin' && <Link className="nav-link" to="/admin/review">Review Queue</Link>}
+        {user && user.role === 'user' && <Link className="nav-link" to="/my-applications">My Applications</Link>}
+        {user && (user.role === 'user' || user.role === 'company') && <Link className="nav-link" to="/post-job">Post a Job</Link>}
+        {user && user.role === 'company' && <Link className="nav-link" to="/my-posted-jobs">My Posted Jobs</Link>}
+      </div>
+
+      <div className="navbar-right">
+        {!user && <Link className="nav-link" to="/login">Login</Link>}
+        {!user && <Link className="btn" to="/register">Register</Link>}
+        {user && <span className="navbar-username">Hi, {user.name}</span>}
+        {user && <button className="btn btn-outline" onClick={logout}>Logout</button>}
+      </div>
     </nav>
   )
 };

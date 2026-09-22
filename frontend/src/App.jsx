@@ -9,6 +9,7 @@ import { MyApplications } from "./pages/MyApplication";
 import { MyPostedJobs } from "./pages/MyPostedJobs";
 import { BrowseJobs } from "./pages/BrowseJobs";
 import { Home } from "./pages/Home";
+import { Footer } from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
+        <Footer/>
         <Routes>
           <Route path="/" element={<Home />} />
 
