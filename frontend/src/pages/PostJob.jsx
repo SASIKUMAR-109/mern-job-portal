@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState,useContext } from "react"
+import { useState,useContext ,useEffect} from "react"
 import { apiRequest } from "../api/api";
 import {AuthContext} from "../context/AuthContext"
 
@@ -16,6 +16,11 @@ export const PostJob = () => {
   const [link,setLink] = useState("");
   const [error,setError] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+  if (!token) {
+    navigate("/login");
+  }
+    }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

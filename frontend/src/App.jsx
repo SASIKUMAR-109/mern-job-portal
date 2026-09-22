@@ -17,7 +17,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
-        <Footer/>
+        
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -29,6 +29,7 @@ function App() {
           <Route path="/my-posted-jobs" element={<MyPostedJobs />} />
           <Route path="/admin/review" element={<AdminReview />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </AuthProvider>
   );

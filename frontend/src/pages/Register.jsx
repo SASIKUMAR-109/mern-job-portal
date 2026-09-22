@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useState } from "react"
 import { apiRequest } from "../api/api";
 
@@ -36,6 +36,7 @@ export const Register = () => {
       </select>
       <button type="submit">Register</button>
       {error && <p>{error}</p>}
+      <p>Already have an account? <Link to="/login">Login</Link></p>
     </form>
     </div>
   );

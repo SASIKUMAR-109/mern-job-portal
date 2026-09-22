@@ -21,10 +21,7 @@ export const Home = () => {
   return (
     <div>
         <section className="hero">
-            <div className="hero-actions">
-                <Link to="/jobs" className="btn">Browse Jobs</Link>
-                <Link to="/register" className="btn btn-outline">Get Started</Link>
-            </div>
+            
             <p className="hero-tagline">JOBS • INTERNSHIPS • FOR EVERYONE</p>
             <h1>Find Your Next <span className="highlight">Opportunity</span></h1>
             <p>Not just companies — students share leads too.</p>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
@@ -28,6 +28,7 @@ export const Login = () => {
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
       <button type="submit">Login</button>
       {error && <p>{error}</p>}
+      <p>New here? <Link to="/register">Create an account</Link></p>
     </form>
     </div>
   );
