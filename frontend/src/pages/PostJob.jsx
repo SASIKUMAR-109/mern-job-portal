@@ -22,7 +22,13 @@ export const PostJob = () => {
     try {
       let skillsArray = skills.split(",")
       let trimArray = skillsArray.map((skill)=>skill.trim())
-      const data = await apiRequest("/jobs", "POST", { title,company,description,location,deadline,link,skills:trimArray},token);
+      const validSkills = trimArray.filter((skill) => skill.length >0);
+      if (validSkills.length === 0) {
+        setError("Please enter at least one skill");
+        return; 
+      }
+      
+      const data = await apiRequest("/jobs", "POST", { title,company,description,location,deadline,link,skills:validSkills},token);
       navigate("/my-posted-jobs");
     } catch (error) {
       setError(error.message);
@@ -31,13 +37,13 @@ export const PostJob = () => {
   return (
     <div  className="page-container">
     <form className="auth-form" onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" />
-      <input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="company" />
-      <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" />
+      <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="title" />
+      <input value={company} required onChange={(e) => setCompany(e.target.value)} placeholder="company" />
+      <input type="text" required value={description} onChange={(e) => setDescription(e.target.value)} placeholder="description" />
       <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="location" />
-      <input type="text" value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="skills" />
-      <input type="text" value={deadline} onChange={(e) => setDeadline(e.target.value)} placeholder="deadline" />
-      <input type="text" value={link} onChange={(e) => setLink(e.target.value)} placeholder="link" />
+      <input type="text" required value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="skills" />
+      <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} placeholder="deadline" />
+      <input type="text" required value={link} onChange={(e) => setLink(e.target.value)} placeholder="link" />
       <button type="submit">Post a Job</button>
       {error && <p>{error}</p>}
     </form>
