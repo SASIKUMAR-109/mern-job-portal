@@ -10,6 +10,7 @@ import { MyPostedJobs } from "./pages/MyPostedJobs";
 import { BrowseJobs } from "./pages/BrowseJobs";
 import { Home } from "./pages/Home";
 import { Footer } from "./components/Footer";
+import {About} from "./pages/About"
 import "./App.css";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/my-applications" element={<MyApplications />} />
           <Route path="/my-posted-jobs" element={<MyPostedJobs />} />
           <Route path="/admin/review" element={<AdminReview />} />
+          <Route path ="/about" element = {<About/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>
