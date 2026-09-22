@@ -43,7 +43,7 @@ export const Home = () => {
                     <p>Our team reviews every listing.</p>
                 </div>
                 <div className="step"><h3>3.Get hired.</h3>
-                    <p>Find geniue opportunities and apply with confidence.</p></div>
+                    <p>Find genuine opportunities and apply with confidence.</p></div>
             </div>
         </section>
         <section className="latest-jobs">
