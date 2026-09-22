@@ -12,27 +12,35 @@ export const About = () => {
         with their peers, not just companies posting on their own.
       </p>
 
-      <h2>How it's different</h2>
-      <p>
-        Most job portals only let companies post listings. CareerHub lets 
-        both companies and students post opportunities — so if you hear 
-        your senior's company is hiring, you can share it with your batch 
-        directly on the platform.
-      </p>
+      <div className="about-section">
+        <h2>How it's different</h2>
+        <p>
+          Most job portals only let companies post listings. CareerHub lets 
+          both companies and students post opportunities — so if you hear 
+          your senior's company is hiring, you can share it with your batch 
+          directly on the platform.
+        </p>
+      </div>
 
-      <h2>Trust & moderation</h2>
-      <p>
-        Every listing — whether posted by a company or a student — goes 
-        through admin review before it appears publicly. This keeps the 
-        platform genuine and spam-free, while still being open to everyone.
-      </p>
+      <div className="about-section">
+        <h2>Trust & moderation</h2>
+        <p>
+          Every listing — whether posted by a company or a student — goes 
+          through admin review before it appears publicly. This keeps the 
+          platform genuine and spam-free, while still being open to everyone.
+        </p>
+      </div>
 
-      <h2>Built by</h2>
-      <p>
-        CareerHub was built by Sasi Kumar, a final-year Computer Science 
-        student, as a full-stack MERN project — combining real authentication, 
-        role-based access, and a moderation workflow into a working platform.
-      </p>
+      <div className="about-section">
+        <h2>Built by</h2>
+        <p>
+          CareerHub was built by Sasi Kumar, a final-year Computer Science 
+          student, as a full-stack MERN project — combining real authentication, 
+          role-based access, and a moderation workflow into a working platform.
+        </p>
+      </div>
+
+      <p className="about-signature">— Sasi Kumar</p>
     </div>
   );
 };

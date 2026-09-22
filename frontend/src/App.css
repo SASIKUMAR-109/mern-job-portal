@@ -392,3 +392,58 @@ button:hover {
     margin-right: 0;
   }
 }
+
+/* ---------- About page ---------- */
+
+.about-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 50px 24px 70px;
+}
+
+.about-page h1 {
+  font-size: 36px;
+  color: #f5f5f5;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.about-page > p:first-of-type {
+  font-size: 16px;
+  color: #c9cdd6;
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.about-section {
+  background-color: #1a1d27;
+  border: 1px solid #2a2d3a;
+  border-left: 3px solid #7aa2f7;
+  border-radius: 8px;
+  padding: 22px 26px;
+  margin-bottom: 20px;
+}
+
+.about-section h2 {
+  font-size: 18px;
+  color: #7aa2f7;
+  margin: 0 0 10px 0;
+}
+
+.about-section p {
+  color: #9ba1ae;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-signature {
+  text-align: center;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid #2a2d3a;
+  color: #6b7280;
+  font-size: 14px;
+}
