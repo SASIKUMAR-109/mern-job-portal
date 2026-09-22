@@ -68,6 +68,14 @@ a:hover {
   flex-wrap: wrap;
 }
 
+.spinner {
+  height:80vh;
+  width:100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .navbar-right {
   display: flex;
   align-items: center;

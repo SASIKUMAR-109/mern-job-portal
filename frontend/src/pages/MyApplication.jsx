@@ -2,7 +2,7 @@
 import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
-
+import {Spinner} from "../components/Spinner"
 
 export const MyApplications = () => {
   const { user, token } = useContext(AuthContext)
@@ -38,7 +38,7 @@ export const MyApplications = () => {
     alert(e.message);
   }
     };
-  return <div className="page-container">
+  return Spinner(<div className="page-container">
     {error && <p className="error-text">{error}</p>}
     {applications.map((application) => (
   <div className="card" key={application._id}>
@@ -57,5 +57,5 @@ export const MyApplications = () => {
      
   
   </div>
-))}</div>;;
+))}</div>);;
 }
