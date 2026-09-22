@@ -1,7 +1,7 @@
 import {useState,useEffect} from "react";
 import {Link} from "react-router-dom";
-import {apiRequest} from "../api/api"
-
+import {apiRequest} from "../api/api";
+import {Spinner} from "../components/Spinner";
 export const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState("");
@@ -48,7 +48,7 @@ export const Home = () => {
         </section>
         <section className="latest-jobs">
             <h2>Latest Opportunities</h2>
-            {jobs.slice(0, 4).map((job) => (
+           {Spinner( <div>{jobs.slice(0, 4).map((job) => (
             <div className="card" key={job._id}>
                 <h3>{job.title}</h3>
                 <p>{job.company}</p>
@@ -57,8 +57,9 @@ export const Home = () => {
                     <span key={skill}>{skill}</span>
                 ))}
             </div>
-        ))}
+        ))}</div>)}
         </section>
+       
     </div>
   )
 }

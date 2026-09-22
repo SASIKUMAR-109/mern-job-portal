@@ -1,7 +1,7 @@
 import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
-
+import {Spinner} from "../components/Spinner";
 
 export const BrowseJobs = () => {
   const { user, token } = useContext(AuthContext)
@@ -29,7 +29,7 @@ export const BrowseJobs = () => {
         alert(e.message)
     }
   }
-  return <div className="page-container">
+  return Spinner(<div className="page-container">
     {error && <p className="error-text">{error}</p>}
     {jobs.map((job) => (
   <div className="card" key={job._id}>
@@ -41,5 +41,5 @@ export const BrowseJobs = () => {
      {user && user.role === 'user' && <button onClick = {()=>handleApply(job._id)}>Apply</button>}
   
   </div>
-))}</div>;
+))}</div>);
 }

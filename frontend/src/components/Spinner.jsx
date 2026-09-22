@@ -5,7 +5,7 @@ export function Spinner(data) {
   const [loading, setLoading] = useState(true);
 
   // Simulate data loading
-  setTimeout(() => setLoading(false), 2000);
+  setTimeout(() => setLoading(false), 1000);
 
   return (
     <div>
