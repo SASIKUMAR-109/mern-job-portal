@@ -8,7 +8,7 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link className="nav-link" to="/">Browse Jobs</Link>
+      <Link className="nav-link" to="/jobs">Browse Jobs</Link>
       {!user && <Link className="nav-link" to="/login">Login</Link>}
       {!user && <Link className="nav-link" to="/register">Register</Link>}
       {user && <button className="btn btn-outline" onClick={logout}>Logout</button>}

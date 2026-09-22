@@ -8,6 +8,7 @@ import { PostJob } from "./pages/PostJob";
 import { MyApplications } from "./pages/MyApplication";
 import { MyPostedJobs } from "./pages/MyPostedJobs";
 import { BrowseJobs } from "./pages/BrowseJobs";
+import { Home } from "./pages/Home";
 import "./App.css";
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<BrowseJobs />} />
+          <Route path="/" element={<Home />} />
+
+          <Route path="/jobs" element={<BrowseJobs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/post-job" element={<PostJob />} />

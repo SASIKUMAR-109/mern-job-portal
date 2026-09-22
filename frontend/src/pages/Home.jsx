@@ -52,15 +52,15 @@ export const Home = () => {
         <section className="latest-jobs">
             <h2>Latest Opportunities</h2>
             {jobs.slice(0, 4).map((job) => (
-                <div className="card" key={job._id}>
-                    <h2>{job.title}</h2>
-                    <p>{job.company}</p>
-                    <p>{job.location}</p>
-                </div>
-            ))}
-            {job.skills.slice(0, 3).map((skill) => (
-            <span key={skill}>{skill}</span>
-            ))}
+            <div className="card" key={job._id}>
+                <h3>{job.title}</h3>
+                <p>{job.company}</p>
+                <p>{job.location}</p>
+                {job.skills?.slice(0, 3).map((skill) => (
+                    <span key={skill}>{skill}</span>
+                ))}
+            </div>
+        ))}
         </section>
     </div>
   )
