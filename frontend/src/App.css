@@ -419,6 +419,7 @@ button:hover {
   
 }
 
+
 /* ---------- Mobile navbar (hamburger) ---------- */
 
 .hamburger-btn {
@@ -543,4 +544,40 @@ button:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+.status-select {
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.status-select-applied {
+  background-color: var(--status-applied-bg);
+  color: var(--status-applied-text);
+}
+.status-select-oa {
+  background-color: var(--status-oa-bg);
+  color: var(--status-oa-text);
+}
+.status-select-interview {
+  background-color: var(--status-interview-bg);
+  color: var(--status-interview-text);
+}
+.status-select-offer {
+  background-color: var(--status-offer-bg);
+  color: var(--status-offer-text);
+}
+.status-select-rejected {
+  background-color: var(--status-rejected-bg);
+  color: var(--status-rejected-text);
 }

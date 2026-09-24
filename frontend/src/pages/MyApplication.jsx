@@ -2,7 +2,15 @@
 import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
-import {Spinner} from "../components/Spinner"
+import {Spinner} from "../components/Spinner";
+
+const statusClassMap = {
+  Applied: "applied",
+  OA: "oa",
+  Interview: "interview",
+  Offer: "offer",
+  Rejected: "rejected",
+};
 
 export const MyApplications = () => {
   const { user, token } = useContext(AuthContext)
@@ -47,13 +55,18 @@ export const MyApplications = () => {
   <div className="card" key={application._id}>
     <h3>{application.jobId.title}</h3>
     <p>{application.jobId.company}</p>
-    <select value={application.status} onChange={(e) => handleStatusChange(application._id, e.target.value)}>
-      <option value="Applied">Applied</option>
+    <select
+  className={`status-select status-select-${statusClassMap[application.status] || "applied"}`}
+  value={application.status}
+  onChange={(e) => handleStatusChange(application._id, e.target.value)}
+>
+  <option value="Applied">Applied</option>
       <option value="OA">OA</option>
       <option value="Interview">Interview</option>
       <option value="Offer">Offer</option>
       <option value="Rejected">Rejected</option>
-    </select>
+</select>
+    
     <p>{application.notes}</p>
     <p><a href = {application.jobId.link}>View Posting</a> job link {application.jobId.link}</p>
      {user && user.role === 'user' && <button onClick = {()=>handleWithdraw(application._id)}>Withdraw Application</button>}
