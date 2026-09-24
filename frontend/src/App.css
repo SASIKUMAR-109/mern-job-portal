@@ -379,12 +379,14 @@ button:hover {
   margin-bottom: 24px;
 }
 
+.latest-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
 .latest-jobs .card {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(25% - 15px);
-  margin-right: 16px;
-  min-width: 220px;
+  margin-bottom: 0; /* grid gap replaces this now */
 }
 
 .latest-jobs .card span {
@@ -398,11 +400,7 @@ button:hover {
   margin: 4px 4px 0 0;
 }
 
-@media (max-width: 900px) {
-  .latest-jobs .card {
-    width: calc(50% - 12px);
-  }
-}
+
 
 @media (max-width: 600px) {
   .hero h1 {
@@ -418,10 +416,7 @@ button:hover {
     border-radius: 8px;
     margin-top: 8px;
   }
-  .latest-jobs .card {
-    width: 100%;
-    margin-right: 0;
-  }
+  
 }
 
 /* ---------- Mobile navbar (hamburger) ---------- */
