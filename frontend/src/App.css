@@ -581,3 +581,7 @@ button:hover {
   background-color: var(--status-rejected-bg);
   color: var(--status-rejected-text);
 }
+
+input[type="date"] {
+  color-scheme: dark;
+}
