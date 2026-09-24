@@ -5,6 +5,7 @@ import {Spinner} from "../components/Spinner";
 export const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchJobs = async ()=>{
@@ -14,6 +15,9 @@ export const Home = () => {
         }
       catch (error) {
         setError(error.message);
+    }
+    finally{
+        setLoading(false);
     }
     };fetchJobs()
   }, []);
@@ -48,7 +52,8 @@ export const Home = () => {
         </section>
         <section className="latest-jobs">
             <h2>Latest Opportunities</h2>
-           {Spinner( <div>{jobs.slice(0, 4).map((job) => (
+         <div>
+            {loading ? (<Spinner/>):( jobs.slice(0, 4).map((job) => (
             <div className="card" key={job._id}>
                 <h3>{job.title}</h3>
                 <p>{job.company}</p>
@@ -56,8 +61,10 @@ export const Home = () => {
                 {job.skills?.slice(0, 3).map((skill) => (
                     <span key={skill}>{skill}</span>
                 ))}
-            </div>
-        ))}</div>)}
+                </div>
+    
+        )))}
+           </div>
         </section>
        
     </div>

@@ -8,6 +8,7 @@ export const MyApplications = () => {
   const { user, token } = useContext(AuthContext)
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchApplications = async () => {
       try {
@@ -16,7 +17,9 @@ export const MyApplications = () => {
         }
       catch (error) {
         setError(error.message);
-    }
+    }finally {
+    setLoading(false);
+  }
   };
   fetchApplications();
 }, []);
@@ -38,9 +41,9 @@ export const MyApplications = () => {
     alert(e.message);
   }
     };
-  return Spinner(<div className="page-container">
+  return (<div className="page-container">
     {error && <p className="error-text">{error}</p>}
-    {applications.map((application) => (
+    {loading ? ( <Spinner /> ):(applications.map((application) => (
   <div className="card" key={application._id}>
     <h3>{application.jobId.title}</h3>
     <p>{application.jobId.company}</p>
@@ -57,5 +60,7 @@ export const MyApplications = () => {
      
   
   </div>
-))}</div>);;
+)))}
+    
+    </div>);;
 }

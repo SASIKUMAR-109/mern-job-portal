@@ -1,11 +1,12 @@
 import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
-
+import {Spinner} from "../components/Spinner";
 export const MyPostedJobs = () => {
   const {user,token} = useContext(AuthContext)
   const [jobs,setJobs] = useState([]);
   const [error, setError] = useState("");
+  const [loading,setLoading] = useState(true);
   useEffect(()=>{
     const fetchJobs = async () => {
           try {
@@ -14,6 +15,8 @@ export const MyPostedJobs = () => {
             }
           catch (error) {
             setError(error.message);
+        }finally {
+          setLoading(false);
         }
       };
       fetchJobs();
@@ -45,7 +48,7 @@ const handleDelete = async (jobId) => {
 
   return <div className="page-container">
      {error && <p className="error-text">{error}</p>}
-    {jobs.map((job) => (
+     {loading ? (<Spinner/>):(jobs.map((job) => (
     <div className="card" key={job._id}>
     <h3>{job.title}</h3>
     <p>{job.company}</p>
@@ -56,5 +59,6 @@ const handleDelete = async (jobId) => {
     {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => handleDelete(job._id)}>Delete</button>}
   
   </div>
-))}</div>;
+)))}
+    </div>;
 }

@@ -68,14 +68,6 @@ a:hover {
   flex-wrap: wrap;
 }
 
-.spinner {
-  height:80vh;
-  width:100vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 .navbar-right {
   display: flex;
   align-items: center;
@@ -533,4 +525,27 @@ button:hover {
   border-top: 1px solid var(--border);
   color: var(--text-faint);
   font-size: 14px;
+}
+
+/* Spinner */
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
