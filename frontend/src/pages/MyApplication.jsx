@@ -49,31 +49,48 @@ export const MyApplications = () => {
     alert(e.message);
   }
     };
-  return (<div className="page-container">
+  return (
+  <div className="page-container">
     {error && <p className="error-text">{error}</p>}
-    {loading ? ( <Spinner /> ):(applications.map((application) => (
-  <div className="card" key={application._id}>
-    <h3>{application.jobId.title}</h3>
-    <p>{application.jobId.company}</p>
-    <select
-  className={`status-select status-select-${statusClassMap[application.status] || "applied"}`}
-  value={application.status}
-  onChange={(e) => handleStatusChange(application._id, e.target.value)}
->
-  <option value="Applied">Applied</option>
-      <option value="OA">OA</option>
-      <option value="Interview">Interview</option>
-      <option value="Offer">Offer</option>
-      <option value="Rejected">Rejected</option>
-</select>
-    
-    <p>{application.notes}</p>
-    <p><a href = {application.jobId.link}>View Posting</a> job link {application.jobId.link}</p>
-     {user && user.role === 'user' && <button onClick = {()=>handleWithdraw(application._id)}>Withdraw Application</button>}
-     
-  
+    {loading ? (
+      <Spinner />
+    ) : (
+      applications.map((application) => (
+        <div className="card" key={application._id}>
+          {application.jobId ? (
+            <>
+              <h3>{application.jobId.title}</h3>
+              <p>{application.jobId.company}</p>
+              <p>
+                <a href={application.jobId.link}>View Posting</a>
+              </p>
+            </>
+          ) : (
+            <h3>Job posting no longer available</h3>
+          )}
+
+          <select
+            className={`status-select status-select-${statusClassMap[application.status] || "applied"}`}
+            value={application.status}
+            onChange={(e) => handleStatusChange(application._id, e.target.value)}
+          >
+            <option value="Applied">Applied</option>
+            <option value="OA">OA</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <p>{application.notes}</p>
+
+          {user && user.role === "user" && (
+            <button onClick={() => handleWithdraw(application._id)}>
+              Withdraw Application
+            </button>
+          )}
+        </div>
+      ))
+    )}
   </div>
-)))}
-    
-    </div>);;
+)
 }

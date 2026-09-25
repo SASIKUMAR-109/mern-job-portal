@@ -65,7 +65,7 @@ export const Home = () => {
         </section>
         <section className="latest-jobs">
   <h2>Latest Opportunities</h2>
-  <div className="latest-jobs-grid">
+  <div className="jobs-grid">
     {loading ? (
       <Spinner />
     ) : (
@@ -74,9 +74,11 @@ export const Home = () => {
           <h3>{job.title}</h3>
           <p>{job.company}</p>
           <p>{job.location}</p>
+          <div className="skill-tags">
           {job.skills?.slice(0, 3).map((skill) => (
             <span key={skill}>{skill}</span>
           ))}
+          </div>
         </div>
       ))
     )}
