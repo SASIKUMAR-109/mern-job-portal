@@ -379,28 +379,23 @@ button:hover {
   margin-bottom: 24px;
 }
 
-.latest-jobs-grid {
+.jobs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
-.latest-jobs .card {
-  margin-bottom: 0; /* grid gap replaces this now */
+.jobs-grid .card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
 }
 
-.latest-jobs .card span {
-  display: inline-block;
-  background-color: var(--status-applied-bg);
-  color: var(--primary);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 999px;
-  margin: 4px 4px 0 0;
+@media (max-width: 900px) {
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-
-
 
 @media (max-width: 600px) {
   .hero h1 {
@@ -416,9 +411,10 @@ button:hover {
     border-radius: 8px;
     margin-top: 8px;
   }
-  
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
 }
-
 
 /* ---------- Mobile navbar (hamburger) ---------- */
 
@@ -523,6 +519,37 @@ button:hover {
   font-size: 14px;
 }
 
+/* Inline edit form (MyPostedJobs) */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.edit-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.edit-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
 /* Spinner */
 .spinner-wrap {
   display: flex;
@@ -544,44 +571,4 @@ button:hover {
   to {
     transform: rotate(360deg);
   }
-}
-
-.status-select {
-  background-color: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.status-select:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-
-.status-select-applied {
-  background-color: var(--status-applied-bg);
-  color: var(--status-applied-text);
-}
-.status-select-oa {
-  background-color: var(--status-oa-bg);
-  color: var(--status-oa-text);
-}
-.status-select-interview {
-  background-color: var(--status-interview-bg);
-  color: var(--status-interview-text);
-}
-.status-select-offer {
-  background-color: var(--status-offer-bg);
-  color: var(--status-offer-text);
-}
-.status-select-rejected {
-  background-color: var(--status-rejected-bg);
-  color: var(--status-rejected-text);
-}
-
-input[type="date"] {
-  color-scheme: dark;
 }
