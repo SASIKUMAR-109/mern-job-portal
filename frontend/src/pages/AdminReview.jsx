@@ -34,6 +34,7 @@ useEffect(()=>{
 };
 
     const handleReject = async (jobId) => {
+      if (!window.confirm("Reject this application? This can't be undone.")) return;
   try {
     await apiRequest(`/jobs/${jobId}/reject`, "PATCH", null, token);
     

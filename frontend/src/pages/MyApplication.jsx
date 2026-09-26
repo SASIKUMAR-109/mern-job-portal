@@ -32,6 +32,7 @@ export const MyApplications = () => {
   fetchApplications();
 }, []);
     const handleWithdraw = async (applicationId)=>{
+    if (!window.confirm("Withdraw this application? This can't be undone.")) return;
     try{
       let result = await apiRequest("/applications/delete/" + applicationId, "DELETE", null, token)
       alert("Deleted successfully!")

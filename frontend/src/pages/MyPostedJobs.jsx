@@ -36,6 +36,7 @@ export const MyPostedJobs = () => {
 };
 
 const handleDelete = async (jobId) => {
+  if (!window.confirm("Delete this application? This can't be undone.")) return;
   try {
     await apiRequest(`/jobs/${jobId}`, "DELETE", null, token);
     
