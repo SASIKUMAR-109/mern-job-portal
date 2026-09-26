@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
 import { Toast } from "../components/Toast";
+import {ConfirmDialog} from "../components/ConfirmDialog";
 
 const statusClassMap = {
   Applied: "applied",
@@ -19,6 +20,7 @@ export const MyApplications = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const [pendingWithdrawId, setPendingWithdrawId] = useState(null);
   useEffect(() => {
     const fetchApplications = async () => {
       try {
@@ -29,21 +31,23 @@ export const MyApplications = () => {
         setError(error.message);
     }finally {
     setLoading(false);
-  }
+    }
   };
   fetchApplications();
 }, []);
-    const handleWithdraw = async (applicationId)=>{
-    if (!window.confirm("Withdraw this application? This can't be undone.")) return;
-    try{
-      let result = await apiRequest("/applications/delete/" + applicationId, "DELETE", null, token)
-      setToast({ message: "Deleted successfully!", type: "success" });
-      setApplications(applications.filter((application) => application._id !== applicationId));
-    }
-    catch(e){
-        setToast({ message: e.message, type: "error" });
-    }
+   
+
+const confirmWithdraw = async () => {
+  const applicationId = pendingWithdrawId;
+  setPendingWithdrawId(null);
+  try {
+    await apiRequest("/applications/delete/" + applicationId, "DELETE", null, token);
+    setToast({ message: "Deleted successfully!", type: "success" });
+    setApplications(applications.filter((application) => application._id !== applicationId));
+  } catch (e) {
+    setToast({ message: e.message, type: "error" });
   }
+};
   const handleStatusChange = async (applicationId, newStatus) => {
   try {
     const updated = await apiRequest(`/applications/update/${applicationId}`, "PUT", { status: newStatus }, token);
@@ -56,10 +60,15 @@ export const MyApplications = () => {
   return (
   <div className="page-container">
     <Toast toast={toast} onClose={() => setToast(null)} />
+      <ConfirmDialog
+          open={!!pendingWithdrawId}
+          message="Withdraw this application? This can't be undone."
+          onConfirm={confirmWithdraw}
+          onCancel={() => setPendingWithdrawId(null)}
+        />
     {error && <p className="error-text">{error}</p>}
     {loading ? (
-      <Spinner />
-    ) : (
+      <Spinner />) : (
       applications.map((application) => (
         <div className="card" key={application._id}>
           {application.jobId ? (
@@ -89,9 +98,9 @@ export const MyApplications = () => {
           <p>{application.notes}</p>
 
           {user && user.role === "user" && (
-            <button onClick={() => handleWithdraw(application._id)}>
-              Withdraw Application
-            </button>
+            <button onClick={() => setPendingWithdrawId(application._id)}>
+                Withdraw Application
+              </button>
           )}
         </div>
       ))
