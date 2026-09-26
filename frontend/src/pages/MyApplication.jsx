@@ -74,11 +74,11 @@ export const MyApplications = () => {
             value={application.status}
             onChange={(e) => handleStatusChange(application._id, e.target.value)}
           >
-            <option value="Applied">Applied</option>
-            <option value="OA">OA</option>
-            <option value="Interview">Interview</option>
-            <option value="Offer">Offer</option>
-            <option value="Rejected">Rejected</option>
+            <option className = "status-applied" value="Applied">Applied</option>
+            <option className = "status-oa" value="OA">OA</option>
+            <option className = "status-interview" value="Interview">Interview</option>
+            <option className = "status-offer"value="Offer">Offer</option>
+            <option className = "status-rejected" value="Rejected">Rejected</option>
           </select>
 
           <p>{application.notes}</p>

@@ -10,7 +10,8 @@ import { MyPostedJobs } from "./pages/MyPostedJobs";
 import { BrowseJobs } from "./pages/BrowseJobs";
 import { Home } from "./pages/Home";
 import { Footer } from "./components/Footer";
-import {About} from "./pages/About"
+import {About} from "./pages/About";
+import {NotFound} from "./pages/NotFound";
 import "./App.css";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Home />} />
-
+          <Route path="*" element={<NotFound />} />
           <Route path="/jobs" element={<BrowseJobs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
