@@ -8,13 +8,20 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("user");
   const [error, setError] = useState("");
+  const [confirmpassord,setConfrimpassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmpassord) {
+      setError("Passwords do not match");
+      return;
+    }
     try {
       const data = await apiRequest("/auth/register", "POST", { name, email, password, role });
       navigate("/login");
+    
     } catch (error) {
       if (error.message === "Email already exists") {
           navigate("/login");
@@ -29,7 +36,25 @@ export const Register = () => {
     <form className="auth-form" onSubmit={handleSubmit}>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
       <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+      <input 
+  type={showPassword ? "text" : "password"} 
+  value={password} 
+  onChange={(e) => setPassword(e.target.value)} 
+  placeholder="Password" 
+/>
+<input 
+  type={showPassword ? "text" : "password"} 
+  value={confirmpassord} 
+  onChange={(e) => setConfrimpassword(e.target.value)} 
+  placeholder="Confirm password" 
+/>
+<label style={{ fontSize: "13px", color: "var(--text-muted)" }}>
+  <input 
+    type="checkbox" 
+    checked={showPassword} 
+    onChange={() => setShowPassword(!showPassword)} 
+  /> Show password
+</label>
       <select name="role" value={role} onChange={(e) => setRole(e.target.value)}>
         <option value="user">user</option>
         <option value="company">Company</option>

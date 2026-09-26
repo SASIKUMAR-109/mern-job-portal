@@ -3,6 +3,7 @@ import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
+import { Toast } from "../components/Toast";
 
 const statusClassMap = {
   Applied: "applied",
@@ -17,6 +18,7 @@ export const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState(null);
   useEffect(() => {
     const fetchApplications = async () => {
       try {
@@ -35,11 +37,11 @@ export const MyApplications = () => {
     if (!window.confirm("Withdraw this application? This can't be undone.")) return;
     try{
       let result = await apiRequest("/applications/delete/" + applicationId, "DELETE", null, token)
-      alert("Deleted successfully!")
+      setToast({ message: "Deleted successfully!", type: "success" });
       setApplications(applications.filter((application) => application._id !== applicationId));
     }
     catch(e){
-        alert(e.message)
+        setToast({ message: e.message, type: "error" });
     }
   }
   const handleStatusChange = async (applicationId, newStatus) => {
@@ -47,11 +49,13 @@ export const MyApplications = () => {
     const updated = await apiRequest(`/applications/update/${applicationId}`, "PUT", { status: newStatus }, token);
               setApplications(applications.map((application)=>application._id === applicationId?updated:application))
   } catch (e) {
-    alert(e.message);
+     setToast({ message: e.message, type: "error" });
   }
     };
+    
   return (
   <div className="page-container">
+    <Toast toast={toast} onClose={() => setToast(null)} />
     {error && <p className="error-text">{error}</p>}
     {loading ? (
       <Spinner />
