@@ -4,6 +4,7 @@ import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
 import {useSearchParams} from "react-router-dom";
 import { Toast } from "../components/Toast";
+import { formatDate } from "../utils/formatDate";
 
 export const BrowseJobs = () => {
   const { user, token } = useContext(AuthContext)
@@ -70,8 +71,8 @@ export const BrowseJobs = () => {
         <h3>{job.title}</h3>
         <p>{job.company}</p>
         <p>{job.description}</p>
-        <p>{job.deadline}</p>
-        <p><a href = {job.link}>View Posting</a> job link {job.link}</p>
+        <p>Deadline :{formatDate(job.deadline)}</p>
+        <p><a href={job.link}>View Posting</a></p>
         {appliedIds.has(job._id) ? (<button disabled>Applied</button>) : (user && user.role === 'user' && (<button onClick={() => handleApply(job._id)}>Apply</button>))}
         </div>
       ))

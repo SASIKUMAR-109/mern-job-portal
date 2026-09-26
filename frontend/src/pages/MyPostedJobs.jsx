@@ -4,6 +4,7 @@ import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
 import { Toast } from "../components/Toast";
 import {ConfirmDialog} from "../components/ConfirmDialog";
+import { formatDate } from "../utils/formatDate";
 
 export const MyPostedJobs = () => {
   const {user,token} = useContext(AuthContext)
@@ -117,8 +118,8 @@ const confirmDelete = async () => {
     <h3>{job.title}</h3>
     <p>{job.company}</p>
     <p>{job.status}</p>
-    <p>{job.deadline}</p>
-    <p><a href={job.link}>View Posting</a> job link {job.link}</p>
+    <p>{formatDate(job.deadline)}</p>
+    <p><a href={job.link}>View Posting</a></p>
     {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => setPendingCloseId(job._id)}>Close</button>}
     {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => setPendingDeleteId(job._id)}>Delete</button>}
     {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => handleEditClick(job)}>Edit</button>}

@@ -6,6 +6,8 @@ import {Spinner} from "../components/Spinner";
 import { Toast } from "../components/Toast";
 import {ConfirmDialog} from "../components/ConfirmDialog";
 
+
+
 const statusClassMap = {
   Applied: "applied",
   OA: "oa",
@@ -20,6 +22,8 @@ export const MyApplications = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const [editingNotesId, setEditingNotesId] = useState(null);
+  const [notesDraft, setNotesDraft] = useState("");
   const [pendingWithdrawId, setPendingWithdrawId] = useState(null);
   useEffect(() => {
     const fetchApplications = async () => {
@@ -36,7 +40,15 @@ export const MyApplications = () => {
   fetchApplications();
 }, []);
    
-
+const handleNotesSave = async (applicationId) => {
+  try {
+    const updated = await apiRequest(`/applications/update/${applicationId}`, "PUT", { notes: notesDraft }, token);
+    setApplications(applications.map((application) => application._id === applicationId ? updated : application));
+    setEditingNotesId(null);
+  } catch (e) {
+    setToast({ message: e.message, type: "error" });
+  }
+};
 const confirmWithdraw = async () => {
   const applicationId = pendingWithdrawId;
   setPendingWithdrawId(null);
@@ -95,7 +107,31 @@ const confirmWithdraw = async () => {
             <option className = "status-rejected" value="Rejected">Rejected</option>
           </select>
 
-          <p>{application.notes}</p>
+          {editingNotesId === application._id ? (
+  <div className="notes-edit">
+    <textarea
+      value={notesDraft}
+      onChange={(e) => setNotesDraft(e.target.value)}
+      placeholder="Add a note..."
+    />
+    <div  className="notes-edit-actions">
+    <button onClick={() => handleNotesSave(application._id)}>Save</button>
+    <button onClick={() => setEditingNotesId(null)}>Cancel</button>
+    </div>
+  </div>
+) : (
+  <div className="notes-display">
+    <p>{application.notes || "No notes yet"}</p>
+    <button
+      onClick={() => {
+        setEditingNotesId(application._id);
+        setNotesDraft(application.notes || "");
+      }}
+    >
+      {application.notes ? "Edit Note" : "Add Note"}
+    </button>
+  </div>
+)}
 
           {user && user.role === "user" && (
             <button onClick={() => setPendingWithdrawId(application._id)}>
