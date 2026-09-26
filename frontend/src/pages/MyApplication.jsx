@@ -51,7 +51,7 @@ const confirmWithdraw = async () => {
   const handleStatusChange = async (applicationId, newStatus) => {
   try {
     const updated = await apiRequest(`/applications/update/${applicationId}`, "PUT", { status: newStatus }, token);
-              setApplications(applications.map((application)=>application._id === applicationId?updated:application))
+    setApplications(applications.map((application)=>application._id === applicationId?updated:application))
   } catch (e) {
      setToast({ message: e.message, type: "error" });
   }

@@ -2,6 +2,9 @@ import {useState,useEffect,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
+import { Toast } from "../components/Toast";
+import {ConfirmDialog} from "../components/ConfirmDialog";
+
 export const MyPostedJobs = () => {
   const {user,token} = useContext(AuthContext)
   const [jobs,setJobs] = useState([]);
@@ -9,6 +12,10 @@ export const MyPostedJobs = () => {
   const [loading,setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
+  const [toast, setToast] = useState(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState(null);
+  const [pendingCloseId, setPendingCloseId] = useState(null);
+  
   useEffect(()=>{
     const fetchJobs = async () => {
           try {
@@ -24,27 +31,27 @@ export const MyPostedJobs = () => {
       fetchJobs();
 
   },[]);
-  const handleClose = async (jobId) => {
+  const confirmClose = async () => {
+    const jobId = pendingCloseId;
+    setPendingCloseId(null);
   try {
     const updatedJob = await apiRequest(`/jobs/${jobId}/close`, "PATCH", null, token);
-    
-    alert("Updated Successfully!")
+    setToast({ message: "Closed successfully!", type: "success" });
     setJobs(jobs.map((job) => job._id === jobId ? updatedJob : job));
   } catch (error) {
-    alert(error.message);
+    setToast({ message: error.message, type: "error" });
   }
 };
 
-const handleDelete = async (jobId) => {
-  if (!window.confirm("Delete this application? This can't be undone.")) return;
+const confirmDelete = async () => {
+  const jobId = pendingDeleteId;
+  setPendingDeleteId(null);
   try {
     await apiRequest(`/jobs/${jobId}`, "DELETE", null, token);
-    
-    alert("Deleted Successfully!")
+    setToast({ message: "Deleted successfully!", type: "success" });
     setJobs(jobs.filter((job) => job._id !== jobId));
-    
   } catch (error) {
-    alert(error.message);
+    setToast({ message: error.message, type: "error" });
   }
 };
     
@@ -66,16 +73,29 @@ const handleDelete = async (jobId) => {
   const handleSaveEdit = async (jobId)=>{
     try{
       const edit = await apiRequest("/jobs/" + jobId, "PUT", editForm, token);
-      alert("Edit Successfull");
+      setToast({ message: "Saved successfully!", type: "success" });
       setJobs(jobs.map((job) => job._id === jobId ? edit : job));
       setEditingId(null);
     }
-    catch (e){
-      alert(e.message);
+    catch (error){
+      setToast({ message: error.message, type: "error" });
     }
   }
 
   return <div className="page-container">
+    <Toast toast={toast} onClose={() => setToast(null)} />
+      <ConfirmDialog
+      open={!!pendingCloseId}
+      message="Close this job posting? It will no longer be visible to applicants."
+      onConfirm={confirmClose}
+      onCancel={() => setPendingCloseId(null)}
+    />
+    <ConfirmDialog
+      open={!!pendingDeleteId}
+      message="Are you sure to delete this job posting? This can't be undone."
+      onConfirm={confirmDelete}
+      onCancel={() => setPendingDeleteId(null)}
+    />
      {error && <p className="error-text">{error}</p>}
      {loading ? (<Spinner/>):(jobs.map((job) => (
     <div className="card" key={job._id}>
@@ -99,8 +119,8 @@ const handleDelete = async (jobId) => {
     <p>{job.status}</p>
     <p>{job.deadline}</p>
     <p><a href={job.link}>View Posting</a> job link {job.link}</p>
-    {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => handleClose(job._id)}>Close</button>}
-    {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => handleDelete(job._id)}>Delete</button>}
+    {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => setPendingCloseId(job._id)}>Close</button>}
+    {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => setPendingDeleteId(job._id)}>Delete</button>}
     {user && (user.role === 'user' || user.role === 'company') && <button onClick={() => handleEditClick(job)}>Edit</button>}
   </>
 )}

@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { apiRequest } from "../api/api";
 import {Spinner} from "../components/Spinner";
 import {useSearchParams} from "react-router-dom";
+import { Toast } from "../components/Toast";
 
 export const BrowseJobs = () => {
   const { user, token } = useContext(AuthContext)
@@ -10,6 +11,7 @@ export const BrowseJobs = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams(); 
+  const [toast, setToast] = useState(null);
   const search = searchParams.get("search") || "";
   useEffect(() => {
     const fetchJobs = async () => {
@@ -28,10 +30,10 @@ export const BrowseJobs = () => {
   const handleApply = async (jobId)=>{
     try{
       let result = await apiRequest("/applications/apply/" + jobId, "POST", null, token)
-      alert("Applied successfully!")
+      setToast({ message: "Approved successfully!", type: "success" });
     }
-    catch(e){
-        alert(e.message)
+    catch(error){
+        setToast({message: error.message,type:"error"})
     }
   }
 
@@ -45,6 +47,7 @@ export const BrowseJobs = () => {
 });
   return (
   <div className="page-container">
+    <Toast toast={toast} onClose={() => setToast(null)} />
     {error && <p className="error-text">{error}</p>}
     {loading ? (
       <Spinner />

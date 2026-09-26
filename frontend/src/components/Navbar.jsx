@@ -20,7 +20,8 @@ export const Navbar = () => {
         {user && user.role === 'admin' && <Link className="nav-link" to="/admin/review" onClick={() => setMenuOpen(false)}>Review Queue</Link>}
         {user && user.role === 'user' && <Link className="nav-link" to="/my-applications" onClick={() => setMenuOpen(false)}>My Applications</Link>}
 
-        {user && user.role === 'company' && <Link className="nav-link" to="/my-posted-jobs" onClick={() => setMenuOpen(false)}>My Posted Jobs</Link>}
+        {user && (user.role === 'user' || user.role === 'company') && (<Link className="nav-link" to="/my-posted-jobs" onClick={() => setMenuOpen(false)}>My Posted Jobs</Link>
+)}
       </div>
 
       <div className="navbar-right">
