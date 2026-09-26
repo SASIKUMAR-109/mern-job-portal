@@ -41,8 +41,8 @@ export const PostJob = () => {
       setError("Please enter at least one skill");
       return; 
     }
-    
-    const data = await apiRequest("/jobs", "POST", { title,company,description,location,deadline,link,skills:validSkills},token);
+    const finalLocation = location.trim() || undefined;
+    const data = await apiRequest("/jobs", "POST", { title,company,description,location:finalLocation,deadline,link,skills:validSkills},token);
     navigate("/my-posted-jobs");
   } catch (error) {
     setError(error.message);

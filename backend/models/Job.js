@@ -3,7 +3,7 @@ const jobSchema = new mongoose.Schema({
     title:{type:String, required:true},
     company:{type:String, required:true},
     description:{type:String, required:true},
-    location:{type:String},
+    location: { type: String, default: "Remote" },
     deadline:{type:Date},
     link:{type:String,required:true},
     status: { type: String, enum: ['pending', 'approved', 'rejected', 'closed'], default: 'pending' },
