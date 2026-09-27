@@ -2,7 +2,7 @@
 
 A full-stack job/internship portal built with the MERN stack (MongoDB, Express, React, Node.js), featuring JWT authentication, role-based access control, and a listing moderation workflow.
 
-**Live demo:** https://careerhub-mern-portal.vercel.app/
+**Live demo:** https://career-hub-portal.vercel.app/
 **Backend API:** https://mern-job-portal-76t9.onrender.com
 
 ## Overview

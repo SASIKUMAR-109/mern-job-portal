@@ -15,6 +15,7 @@ export const BrowseJobs = () => {
   const [toast, setToast] = useState(null);
   const [appliedIds, setAppliedIds] = useState(new Set());
   const search = searchParams.get("search") || "";
+  const [localSearch, setLocalSearch] = useState(search);
   useEffect(() => {
   const fetchAppliedJobs = async () => {
     try {
@@ -52,7 +53,7 @@ export const BrowseJobs = () => {
 };
 
   const filteredJobs = jobs.filter((job) => {
-  const term = search.toLowerCase();
+  const term = localSearch.toLowerCase();
   return (
     job.title?.toLowerCase().includes(term) ||
     job.company?.toLowerCase().includes(term) ||
@@ -63,10 +64,16 @@ export const BrowseJobs = () => {
   <div className="page-container">
     <Toast toast={toast} onClose={() => setToast(null)} />
     {error && <p className="error-text">{error}</p>}
+    <input
+        type="text"
+        className="search-input"
+        value={localSearch}
+        onChange={(e) => setLocalSearch(e.target.value)}
+        placeholder="Search jobs..."
+    />
     {loading ? (
       <Spinner />
-    ) : (
-      filteredJobs.map((job) => (
+    ) : ( filteredJobs.map((job) => ( 
         <div className="card" key={job._id}>
         <h3>{job.title}</h3>
         <p>{job.company}</p>
@@ -78,7 +85,7 @@ export const BrowseJobs = () => {
       ))
     )}
      {!loading && filteredJobs.length === 0 && (
-      <p>No jobs found matching "{search}"</p>
+      localSearch.trim() ? <p>No jobs found matching "{localSearch}"</p> : <p>No jobs found</p>
     )}
   </div>
 )

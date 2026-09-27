@@ -193,6 +193,16 @@ button:hover {
   margin-top: 6px;
 }
 
+.password-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.password-field input[type="text"],
+.password-field input[type="password"] {
+  flex: 1;
+}
 /* Job / application cards */
 .card {
   background-color: var(--surface);
@@ -502,8 +512,30 @@ button:hover {
   .jobs-grid {
     grid-template-columns: 1fr;
   }
+   .password-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 
+/* input field in browse jobs */
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
 /* ---------- Mobile navbar (hamburger) ---------- */
 
 .hamburger-btn {

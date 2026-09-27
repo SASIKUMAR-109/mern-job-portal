@@ -10,6 +10,7 @@ export const Register = () => {
   const [error, setError] = useState("");
   const [confirmpassord,setConfrimpassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,6 +20,7 @@ export const Register = () => {
       return;
     }
     try {
+      setSubmitting(true);
       const data = await apiRequest("/auth/register", "POST", { name, email, password, role });
       navigate("/login");
     
@@ -27,8 +29,10 @@ export const Register = () => {
           navigate("/login");
   } else {
     setError(error.message);
-  }
-}
+          }
+  } finally {
+      setSubmitting(false);
+     }
   };
 
   return (
@@ -59,7 +63,9 @@ export const Register = () => {
         <option value="user">user</option>
         <option value="company">Company</option>
       </select>
-      <button type="submit">Register</button>
+      <button type="submit" disabled={submitting}>
+        {submitting ? "Registering..." : "Register"}
+      </button>
       {error && <p>{error}</p>}
       <p>Already have an account? <Link to="/login">Login</Link></p>
     </form>
