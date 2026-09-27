@@ -342,6 +342,17 @@ button:hover {
   color: var(--primary);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-logo {
+  height: 32px;
+  width: auto;
+}
+
 .hero > p {
   font-size: 16px;
   color: var(--text-muted);
